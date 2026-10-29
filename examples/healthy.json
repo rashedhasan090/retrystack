@@ -1,0 +1,11 @@
+{
+  "services": [
+    {"name": "api", "entry": true, "deadline_ms": 3000},
+    {"name": "search", "latency_ms": 40},
+    {"name": "index", "latency_ms": 100}
+  ],
+  "calls": [
+    {"from": "api", "to": "search", "attempts": 2, "timeout_ms": 600, "backoff_ms": 100, "jitter": true},
+    {"from": "search", "to": "index", "attempts": 1, "timeout_ms": 500}
+  ]
+}

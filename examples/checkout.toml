@@ -1,0 +1,41 @@
+# A checkout path where every layer "helpfully" retries.
+[[services]]
+name = "web"
+entry = true
+deadline_ms = 2000
+
+[[services]]
+name = "orders"
+latency_ms = 20
+
+[[services]]
+name = "payments"
+latency_ms = 50
+
+[[services]]
+name = "ledger-db"
+latency_ms = 300
+capacity_rps = 500
+
+[[calls]]
+from = "web"
+to = "orders"
+attempts = 3
+timeout_ms = 1000
+backoff_ms = 100
+backoff = "exponential"
+
+[[calls]]
+from = "orders"
+to = "payments"
+attempts = 3
+timeout_ms = 800
+backoff_ms = 50
+jitter = true
+
+[[calls]]
+from = "payments"
+to = "ledger-db"
+attempts = 4
+timeout_ms = 400
+backoff_ms = 0

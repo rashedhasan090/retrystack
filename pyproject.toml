@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retrystack"
+version = "0.1.0"
+description = "Find retry amplification, timeout inversions, and deadline overruns across a service call graph"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [{name = "Md Rashedul Hasan"}]
+
+[project.scripts]
+retrystack = "retrystack.cli:main"
+
+[tool.setuptools]
+packages = ["retrystack"]
